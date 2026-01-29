@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16
+    container_name: jobtracker_db
+    environment:
+      POSTGRES_USER: job_user
+      POSTGRES_PASSWORD: job_pass
+      POSTGRES_DB: job_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - jobtracker_pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    container_name: jobtracker_api
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+
+  web:
+    build: ./frontend
+    container_name: jobtracker_web
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  jobtracker_pgdata:

@@ -1,0 +1,8 @@
+fastapi==0.115.8
+uvicorn[standard]==0.34.0
+SQLAlchemy==2.0.36
+psycopg2-binary==2.9.9
+pydantic==2.10.6
+pydantic-settings==2.7.1
+python-jose==3.3.0  # create/verify JWT tokens
+passlib[bcrypt]==1.7.4 # securely hash/verify passwords
